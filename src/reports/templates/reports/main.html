@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block scripts %}
+    <!-- <script src="{% static 'reports/upload.js' %}" defer></script> -->
+
+<!-- favicon --> 
+<!-- <link rel="shortcut icon" href="{% static 'reports/favicon.ico' %}" /> -->
+
+ <!-- Custom js & css -->
+ <link rel="stylesheet" href="{% static 'reports/style.css' %}">
+
+<!-- dropzone.js and dropzone.css -->
+<!-- <link rel="stylesheet" href="{% static 'reports/dropzone.js' %}">
+<link rel="stylesheet" href="{% static 'reports/dropzone.css' %}"> -->
+
+
+{% endblock scripts %}
+
+{% block title %}
+    reports
+{% endblock title %}
+
+{% block content %}
+    reports
+    <hr>
+    {% for obj in object_list %}
+        <div class="card mb-3">
+            {% if obj.image %}
+                <img src="{{obj.image.url}}" class="card-img-top" alt="{{obj.name}}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{obj.name}}</h5>
+                <p class="card-text">{{obj.remarks|truncatewords:2}}</p>
+                <a href="{{obj.get_absolute_url}}" class="btn btn-primary" target="_blank">details</a>
+                <!-- <a href="" class="btn btn-danger">pdf</a> -->
+                <a href="{% url 'reports:pdf' obj.pk %}" class="btn btn-danger" target="_blank">pdf</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}
